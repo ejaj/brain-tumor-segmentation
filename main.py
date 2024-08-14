@@ -1,6 +1,3 @@
-import re
-from collections import defaultdict
-
 import os
 import re
 from collections import defaultdict
@@ -14,6 +11,7 @@ from Loss import CombinedLoss
 from UNet3D import UNet3D
 from plots import visualize_predictions
 from train_and_eval import evaluate_model, train_model
+from utils import count_parameters
 
 directory = "data/content/data/"
 
@@ -105,3 +103,11 @@ print(f'Test Loss: {test_loss:.4f}, Test Dice: {test_dice:.4f}')
 
 # Visualize predictions on the test set
 visualize_predictions(model, test_loader, device)
+
+# Get the counts
+total_params, total_trainable_params, weight_params = count_parameters(model)
+
+# Print the results
+print(f"Total parameters: {total_params}")
+print(f"Total trainable parameters: {total_trainable_params}")
+print(f"Total weight parameters: {weight_params}")
